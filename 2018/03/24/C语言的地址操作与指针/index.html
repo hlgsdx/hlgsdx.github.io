@@ -1,0 +1,374 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="baidu_union_verify" content="d1952c66cf48912e21c18c7c581f382a">
+  <meta name="360-site-verification" content="67fbcc5a67f4c65c057315b28fa0b2c8" />
+<meta name="google-site-verification" content="2GzxQ0VtXwTSUdmGm6DzcmhTzM_I9QmzCb_pzpMzD88" />
+  
+    <title>C语言的地址操作与指针 | 晚起的Bug不被吃</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="旭">
+    
+    <meta name="description" content="C语言的地址操作与指针指针的声明在C语言中，指针用 “变量类型 * 指针名” 的方式声明。
+如要声明一个int类型、名为p的指针:1int *p = NULL;
+给指针变量赋值获得一个变量的地址，可以使用取地址符的方式： “&amp;amp; 变量名”，然后就可以赋值给指针。12int num = 1234">
+    
+    
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="h113sdx_t" />
+    <meta name="twitter:title" content="C语言的地址操作与指针 | 晚起的Bug不被吃" />
+      
+    
+    
+    <link rel="alternate" href="atom.xml" title="晚起的Bug不被吃" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="stylesheet" href="/css/style.css">
+     
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="晚起的Bug不被吃">晚起的Bug不被吃</a></h1>
+				<a class="blog-motto">Although Slow Start, Better Late Than Never</a>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+					<li>
+					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:198.181.32.164">
+					</form>
+					
+					</li>
+				</ul>
+                            </nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2018/03/24/C语言的地址操作与指针/" title="C语言的地址操作与指针" itemprop="url">C语言的地址操作与指针</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://198.181.32.164" title="旭">旭</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2018-03-24T14:38:10.000Z" itemprop="datePublished">2018-03-24</time>
+    更新日期:<time datetime="2018-03-24T14:38:24.694Z" itemprop="dateModified">2018-03-24</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#C语言的地址操作与指针"><span class="toc-number">1.</span> <span class="toc-text">C语言的地址操作与指针</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#指针的声明"><span class="toc-number">1.1.</span> <span class="toc-text">指针的声明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#给指针变量赋值"><span class="toc-number">1.2.</span> <span class="toc-text">给指针变量赋值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#指针的打印输出"><span class="toc-number">1.3.</span> <span class="toc-text">指针的打印输出</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#指针的本质"><span class="toc-number">1.4.</span> <span class="toc-text">指针的本质</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分析指针变量的类型方法"><span class="toc-number">1.5.</span> <span class="toc-text">分析指针变量的类型方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#野指针"><span class="toc-number">1.6.</span> <span class="toc-text">野指针</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二级指针"><span class="toc-number">1.7.</span> <span class="toc-text">二级指针</span></a></li></ol></li></ol>
+		</div>
+		
+		<h1 id="C语言的地址操作与指针"><a href="#C语言的地址操作与指针" class="headerlink" title="C语言的地址操作与指针"></a>C语言的地址操作与指针</h1><h2 id="指针的声明"><a href="#指针的声明" class="headerlink" title="指针的声明"></a>指针的声明</h2><p>在C语言中，指针用 “<strong>变量类型 * 指针名</strong>” 的方式声明。</p>
+<p>如要声明一个int类型、名为p的指针:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int *p = NULL;</span><br></pre></td></tr></table></figure></p>
+<h2 id="给指针变量赋值"><a href="#给指针变量赋值" class="headerlink" title="给指针变量赋值"></a>给指针变量赋值</h2><p>获得一个变量的地址，可以使用取地址符的方式： “<strong>&amp; 变量名</strong>”，然后就可以赋值给指针。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int num = 1234;</span><br><span class="line">p = &amp;num;</span><br></pre></td></tr></table></figure></p>
+<h2 id="指针的打印输出"><a href="#指针的打印输出" class="headerlink" title="指针的打印输出"></a>指针的打印输出</h2><p>在printf中，使用%p来打印指针的首地址，如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">printf(&quot;%p\n&quot;, p);</span><br></pre></td></tr></table></figure></p>
+<p>可以使用间接引用的方法使用它：“<strong>* 指针变量名</strong>”<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">int num = 1234;</span><br><span class="line">int *p = NULL;</span><br><span class="line">p = &amp;num;</span><br><span class="line">*p = 4321;</span><br><span class="line">printf(&quot;%d&quot;, num); // 输出4321</span><br></pre></td></tr></table></figure></p>
+<h2 id="指针的本质"><a href="#指针的本质" class="headerlink" title="指针的本质"></a>指针的本质</h2><p>指针的本质是一个存地址的变量，在32位程序中，大小为8个16进制数（4字节）；在64位程序中，大小为16个16进制数（8字节），与指向的类型无关。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">printf(&quot;%d\n&quot;, sizeof(p)); // 输出 4（32位程序) 8（64位程序）</span><br></pre></td></tr></table></figure></p>
+<p><strong>p</strong> 等价于 <strong>&amp;num</strong></p>
+<p><strong>*p</strong> 等价于 <strong>*&amp;num</strong> 等价于 <strong>num</strong></p>
+<h2 id="分析指针变量的类型方法"><a href="#分析指针变量的类型方法" class="headerlink" title="分析指针变量的类型方法"></a>分析指针变量的类型方法</h2><p>变量的类型：去掉变量名</p>
+<p>指针指向的类型：去掉变量名 再去掉一个*，剩下的就是指针指向的类型。</p>
+<p>int *p  变量的类型 int* ；指针指向的类型 int。</p>
+<p>int **pp 变量的类型 int ** ；指针指向的类型 int *。</p>
+<h2 id="野指针"><a href="#野指针" class="headerlink" title="野指针"></a>野指针</h2><p>野指针是指向一个已删除的对象或未申请访问受限内存区域的指针。与空指针不同，野指针无法通过简单地判断是否为 NULL避免。所以，对野指针进行操作很容易造成程序错误。</p>
+<p><strong>写程序时要尽量避免操作自己的程序以外的地址。</strong></p>
+<h2 id="二级指针"><a href="#二级指针" class="headerlink" title="二级指针"></a>二级指针</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">int num = 1126;</span><br><span class="line">int *p = &amp;num; // 指针 p 指向 num</span><br><span class="line">int ** pp = &amp;p; // 指针 pp 指向 指针 p</span><br><span class="line">int b = 2611;</span><br><span class="line">*pp = &amp;b;		// 操作二级指针，此时指针 pp 指向 指针 p 、 指针 p 指向 b</span><br></pre></td></tr></table></figure>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://198.181.32.164/2018/03/24/C语言的地址操作与指针/" data-title="C语言的地址操作与指针 | 晚起的Bug不被吃" data-tsina="" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#C语言的地址操作与指针"><span class="toc-number">1.</span> <span class="toc-text">C语言的地址操作与指针</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#指针的声明"><span class="toc-number">1.1.</span> <span class="toc-text">指针的声明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#给指针变量赋值"><span class="toc-number">1.2.</span> <span class="toc-text">给指针变量赋值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#指针的打印输出"><span class="toc-number">1.3.</span> <span class="toc-text">指针的打印输出</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#指针的本质"><span class="toc-number">1.4.</span> <span class="toc-text">指针的本质</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分析指针变量的类型方法"><span class="toc-number">1.5.</span> <span class="toc-text">分析指针变量的类型方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#野指针"><span class="toc-number">1.6.</span> <span class="toc-text">野指针</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二级指针"><span class="toc-number">1.7.</span> <span class="toc-text">二级指针</span></a></li></ol></li></ol>
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+<div id="authorInfo">
+	
+		<div class="author-logo"></div>		
+	
+	<div class="social-list" class="clearfix">
+		
+		
+		<a href="https://twitter.com/h113sdx_t" target="_blank" title="twitter"></a>
+		
+		
+		<a href="https://github.com/hlgsdx" target="_blank" title="github"></a>
+		
+		
+		<a href="https://www.facebook.com/hlgsdx" target="_blank" title="facebook"></a>
+		
+		
+	</div>
+</div>
+
+  
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+      <li><a href="http://hexo.io" target="_blank" title="Hexo">Hexo</a></li>
+      <li><a href="http://gengbiao.me" target="_blank" title="coney">coney's Blog</a></li>
+    </ul>
+</div>
+
+
+  
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+    
+            <p class="copyright"> © 2018 
+		
+		<a href="http://198.181.32.164" target="_blank" title="旭">旭</a>
+		
+            && Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> && Theme by <a href="http://gengbiao.me" target="_blank" title="coney">coney</a>
+            </div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+
+
+
+
+<script>
+    
+        var _bdImg = '4';
+    
+    window._bd_share_config={
+        "common":{
+            "bdSnsKey":{
+
+            },
+            "bdText":"",
+            "bdMini":"2",
+            "bdMiniList":[
+                "qzone",
+                "tsina",
+                "weixin",
+                "renren",
+                "tqq",
+                "tieba",
+                "douban",
+                "sqq",
+                "diandian",
+                "huaban",
+                "youdao",
+                "mail",
+                "ty",
+                "fbook",
+                "twi",
+                "linkedin",
+                "copy",
+                "print"
+            ],
+            "bdPic":"",
+            "bdStyle":"0",
+            "bdSize":"16"
+        },
+        "slide":{
+            "type":"slide",
+            "bdImg":_bdImg,
+            "bdPos":"right",
+            "bdTop":"350"
+        },
+        "image":{
+            "viewList":[
+                "weixin",
+                "qzone",
+                "tsina",
+                "renren",
+                "douban",
+                "tqq"
+            ],
+            "viewText":"分享：",
+            "viewSize":"16"
+        },
+        "selectShare":{
+            "bdContainerClass":null,
+            "bdSelectMiniList":[
+                "weixin",
+                "qzone",
+                "tsina",
+                "renren",
+                "douban",
+                "tqq"
+            ]
+        }
+    };
+    with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+
+
+
+
+  </body>
+</html>
+
