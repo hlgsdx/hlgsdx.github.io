@@ -1,0 +1,620 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="baidu_union_verify" content="d1952c66cf48912e21c18c7c581f382a">
+  <meta name="360-site-verification" content="67fbcc5a67f4c65c057315b28fa0b2c8" />
+<meta name="google-site-verification" content="2GzxQ0VtXwTSUdmGm6DzcmhTzM_I9QmzCb_pzpMzD88" />
+  
+    <title>C语言复习杂记1 | 晚起的Bug不被吃</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="旭">
+    
+    <meta name="description" content="C语言复习杂记1头文件12#include &amp;lt;xxx.h&amp;gt;  #include &amp;quot;xxx.h&amp;quot;
+尖括号与双引号的区别：双引号比尖括号查找范围大，双引号是优先查找用户目录然后系统目录。  
+主函数12345678910int main( void )  /* 半标准：无">
+    
+    
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="h113sdx_t" />
+    <meta name="twitter:title" content="C语言复习杂记1 | 晚起的Bug不被吃" />
+      
+    
+    
+    <link rel="alternate" href="atom.xml" title="晚起的Bug不被吃" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="stylesheet" href="/css/style.css">
+     
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="晚起的Bug不被吃">晚起的Bug不被吃</a></h1>
+				<a class="blog-motto">Although Slow Start, Better Late Than Never</a>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+					<li>
+					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:198.181.32.164">
+					</form>
+					
+					</li>
+				</ul>
+                            </nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2018/03/25/C语言复习杂记1/" title="C语言复习杂记1" itemprop="url">C语言复习杂记1</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://198.181.32.164" title="旭">旭</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2018-03-25T12:28:23.000Z" itemprop="datePublished">2018-03-25</time>
+    更新日期:<time datetime="2018-03-25T12:40:55.794Z" itemprop="dateModified">2018-03-25</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#C语言复习杂记1"><span class="toc-number">1.</span> <span class="toc-text">C语言复习杂记1</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#头文件"><span class="toc-number">1.1.</span> <span class="toc-text">头文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#主函数"><span class="toc-number">1.2.</span> <span class="toc-text">主函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据类型"><span class="toc-number">1.3.</span> <span class="toc-text">数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#printf格式化转换说明符"><span class="toc-number">1.4.</span> <span class="toc-text">printf格式化转换说明符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#例题"><span class="toc-number">1.5.</span> <span class="toc-text">例题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#例题1："><span class="toc-number">1.5.1.</span> <span class="toc-text">例题1：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#例题2："><span class="toc-number">1.5.2.</span> <span class="toc-text">例题2：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#例题3：（陷阱题）"><span class="toc-number">1.5.3.</span> <span class="toc-text">例题3：（陷阱题）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#例题4："><span class="toc-number">1.5.4.</span> <span class="toc-text">例题4：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#例题5："><span class="toc-number">1.5.5.</span> <span class="toc-text">例题5：</span></a></li></ol></li></ol></li></ol>
+		</div>
+		
+		<h1 id="C语言复习杂记1"><a href="#C语言复习杂记1" class="headerlink" title="C语言复习杂记1"></a>C语言复习杂记1</h1><h2 id="头文件"><a href="#头文件" class="headerlink" title="头文件"></a>头文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;xxx.h&gt;  </span><br><span class="line">#include &quot;xxx.h&quot;</span><br></pre></td></tr></table></figure>
+<p>尖括号与双引号的区别：双引号比尖括号查找范围大，双引号是优先查找用户目录然后系统目录。  </p>
+<h2 id="主函数"><a href="#主函数" class="headerlink" title="主函数"></a>主函数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">int main( void )  /* 半标准：无参数形式 */</span><br><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">    return 0;	// 正常结束</span><br><span class="line">&#125;</span><br><span class="line">int main( int argc, char *argv[] ) /*全标准：带参数形式 */</span><br><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><p>共6种：整形4种  +  实型2种  </p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>表示范围、精度、大小</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>char</td>
+<td>-128~127，1字节</td>
+</tr>
+<tr>
+<td>short</td>
+<td>-32768~32767，2字节</td>
+</tr>
+<tr>
+<td>int</td>
+<td>-2147483648~2147483647，4字节</td>
+</tr>
+<tr>
+<td>long</td>
+<td>32位编译器 4字节；64位编译器 8字节</td>
+</tr>
+<tr>
+<td>float</td>
+<td>3.4e-38~3.4e38 精确到小数点后6位 4字节</td>
+</tr>
+<tr>
+<td>double</td>
+<td>1.7e-308~1.7e308 精确到小数点后15位 8字节</td>
+</tr>
+</tbody>
+</table>
+<h2 id="printf格式化转换说明符"><a href="#printf格式化转换说明符" class="headerlink" title="printf格式化转换说明符"></a>printf格式化转换说明符</h2><table>
+<thead>
+<tr>
+<th>符号</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>%a(%A)</td>
+<td>浮点数、十六进制数字和p-(P-)记数法(C99)</td>
+</tr>
+<tr>
+<td>%c</td>
+<td>字符</td>
+</tr>
+<tr>
+<td>%d</td>
+<td>有符号十进制整数</td>
+</tr>
+<tr>
+<td>%0nd</td>
+<td>n：位数，0：不足位补0</td>
+</tr>
+<tr>
+<td>%f</td>
+<td>浮点数(包括float和doulbe)</td>
+</tr>
+<tr>
+<td>%m.nf</td>
+<td>m：总宽度会自动扩展、补齐空格 n：小数点位数，大于小数点个数右边补齐0，小于则截断</td>
+</tr>
+<tr>
+<td>%e(%E)</td>
+<td>浮点数指数输出[e-(E-)记数法]</td>
+</tr>
+<tr>
+<td>%g(%G)</td>
+<td>浮点数不显无意义的零”0”</td>
+</tr>
+<tr>
+<td>%i</td>
+<td>有符号十进制整数(与%d相同)</td>
+</tr>
+<tr>
+<td>%u</td>
+<td>无符号十进制整数</td>
+</tr>
+<tr>
+<td>%o</td>
+<td>八进数    e.g.     0123</td>
+</tr>
+<tr>
+<td>%x(%X)</td>
+<td>十六进制整数0f(0F)   e.g.   0x1234</td>
+</tr>
+<tr>
+<td>%p</td>
+<td>指针</td>
+</tr>
+<tr>
+<td>%le</td>
+<td>双精度，使用<strong>科学计数法</strong></td>
+</tr>
+<tr>
+<td>%s</td>
+<td>字符串，使用时传入字符串首地址</td>
+</tr>
+<tr>
+<td>%%</td>
+<td>“%”</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h2><h3 id="例题1："><a href="#例题1：" class="headerlink" title="例题1："></a>例题1：</h3><p>int i = -2147483648; 求</p>
+<ul>
+<li>-i</li>
+<li>~i</li>
+<li>-1-i</li>
+<li>i+1<blockquote>
+<p>答案：</p>
+<ul>
+<li>-i=  -2147483648</li>
+<li>~i=  2147483647</li>
+<li>-1-i=  2147483647</li>
+<li>i+1=  -2147483647</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<hr>
+<h3 id="例题2："><a href="#例题2：" class="headerlink" title="例题2："></a>例题2：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">char a,b,c,d;</span><br><span class="line">① a=30;</span><br><span class="line">② b=++a;</span><br><span class="line">③ c=a++;</span><br><span class="line">④ d=(a++)*10;</span><br></pre></td></tr></table></figure>
+<p>问最终d的值。<br>过程分析：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Step</th>
+<th>a</th>
+<th>b</th>
+<th>c</th>
+<th>d</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td>30</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td>31</td>
+<td>31</td>
+<td>X</td>
+<td>X</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td>32</td>
+<td>31</td>
+<td>X</td>
+<td>X</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td>33</td>
+<td>31</td>
+<td>31</td>
+<td><del>320</del></td>
+</tr>
+</tbody>
+</table>
+<p>由于d是char型，大小为1字节，故320会被截断。<br>320的二进制为1 0100 0000，高于第8位的会被截断。<br>320=2<sup>8</sup>+2<sup>6</sup>=256+64  </p>
+<blockquote>
+<p>答案：d的值为64。</p>
+</blockquote>
+<hr>
+<h3 id="例题3：（陷阱题）"><a href="#例题3：（陷阱题）" class="headerlink" title="例题3：（陷阱题）"></a>例题3：（陷阱题）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">double b = 123.1</span><br><span class="line">int c = 2;</span><br><span class="line">float d = 6.2;</span><br><span class="line">char e = 10;</span><br><span class="line">short f = 5;</span><br><span class="line">e = f+b+c+d;</span><br></pre></td></tr></table></figure>
+<p>问<strong>sizeof</strong>(e)=?</p>
+<p>分析：此题看似求e的值，实为求char类型的大小。</p>
+<table>
+<thead>
+<tr>
+<th>type</th>
+<th>size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>double</td>
+<td>8 Bytes</td>
+</tr>
+<tr>
+<td>int</td>
+<td>4 Bytes</td>
+</tr>
+<tr>
+<td>float</td>
+<td>4 Bytes</td>
+</tr>
+<tr>
+<td>char</td>
+<td>1 Byte</td>
+</tr>
+<tr>
+<td>short</td>
+<td>2 Bytes</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>答案：1</p>
+</blockquote>
+<hr>
+<h3 id="例题4："><a href="#例题4：" class="headerlink" title="例题4："></a>例题4：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">int a=-5;</span><br><span class="line">unsigned int b=1;</span><br><span class="line">int ncount=0;</span><br><span class="line">while(++a&lt;=5)</span><br><span class="line">&#123;</span><br><span class="line">	if(a+b&gt;5)</span><br><span class="line">		ncount++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>问ncount=?<br>分析：<br>当a和b相加时，要将int转化为unsigned int。由于a是&lt;0，其最高位符号位是1，在转化为unsigned int 时其符号位会参与运算，结果是一个很大的数（4294967292+1==4294967293），满足&gt;0的条件，ncount++。<br>当循环几次之后，此时ncount==3，a+b为4294967295+1==0，ncount不变。当a=5时，满足a+b==6&gt;5的条件，ncount++。</p>
+<blockquote>
+<p>答案：4</p>
+</blockquote>
+<hr>
+<h3 id="例题5："><a href="#例题5：" class="headerlink" title="例题5："></a>例题5：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">int a[5]=&#123;1,2,3,4,5&#125;;</span><br><span class="line">int b=-5;</span><br><span class="line">if(b+sizeof(a)/sizeof(a[0])&gt;0)</span><br><span class="line">	printf(&quot;Yes&quot;);</span><br><span class="line">else</span><br><span class="line">	printf(&quot;No&quot;);</span><br></pre></td></tr></table></figure>
+<p>请问输出是什么?</p>
+<p>分析：sizeof()运算符返回的类型是size_t，它是与机器相关的unsigned类型。在某些机器上，当int和size_t相加时，要将int转化为unsigned int。由于b是负数，其符号位是1，在转化为unsigned int 时其符号位会参与运算，结果不是0，而是一个很大的数。</p>
+<blockquote>
+<p>答案：Yes</p>
+</blockquote>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/C语言/">C语言</a>
+  </div>
+
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://198.181.32.164/2018/03/25/C语言复习杂记1/" data-title="C语言复习杂记1 | 晚起的Bug不被吃" data-tsina="" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2018/03/24/C语言的地址操作与指针/"  title="C语言的地址操作与指针">
+ <strong>NEXT:</strong><br/> 
+ <span>C语言的地址操作与指针
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#C语言复习杂记1"><span class="toc-number">1.</span> <span class="toc-text">C语言复习杂记1</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#头文件"><span class="toc-number">1.1.</span> <span class="toc-text">头文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#主函数"><span class="toc-number">1.2.</span> <span class="toc-text">主函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据类型"><span class="toc-number">1.3.</span> <span class="toc-text">数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#printf格式化转换说明符"><span class="toc-number">1.4.</span> <span class="toc-text">printf格式化转换说明符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#例题"><span class="toc-number">1.5.</span> <span class="toc-text">例题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#例题1："><span class="toc-number">1.5.1.</span> <span class="toc-text">例题1：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#例题2："><span class="toc-number">1.5.2.</span> <span class="toc-text">例题2：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#例题3：（陷阱题）"><span class="toc-number">1.5.3.</span> <span class="toc-text">例题3：（陷阱题）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#例题4："><span class="toc-number">1.5.4.</span> <span class="toc-text">例题4：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#例题5："><span class="toc-number">1.5.5.</span> <span class="toc-text">例题5：</span></a></li></ol></li></ol></li></ol>
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+<div id="authorInfo">
+	
+		<div class="author-logo"></div>		
+	
+	<div class="social-list" class="clearfix">
+		
+		
+		<a href="https://twitter.com/h113sdx_t" target="_blank" title="twitter"></a>
+		
+		
+		<a href="https://github.com/hlgsdx" target="_blank" title="github"></a>
+		
+		
+		<a href="https://www.facebook.com/hlgsdx" target="_blank" title="facebook"></a>
+		
+		
+	</div>
+</div>
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/C语言/" title="C语言">C语言<sup>2</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+      <li><a href="http://hexo.io" target="_blank" title="Hexo">Hexo</a></li>
+      <li><a href="http://gengbiao.me" target="_blank" title="coney">coney's Blog</a></li>
+    </ul>
+</div>
+
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">标签云</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/C语言/" style="font-size: 10px;">C语言</a>
+    </div>
+  </div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+    
+            <p class="copyright"> © 2018 
+		
+		<a href="http://198.181.32.164" target="_blank" title="旭">旭</a>
+		
+            && Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> && Theme by <a href="http://gengbiao.me" target="_blank" title="coney">coney</a>
+            </div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+
+
+
+
+<script>
+    
+        var _bdImg = '4';
+    
+    window._bd_share_config={
+        "common":{
+            "bdSnsKey":{
+
+            },
+            "bdText":"",
+            "bdMini":"2",
+            "bdMiniList":[
+                "qzone",
+                "tsina",
+                "weixin",
+                "renren",
+                "tqq",
+                "tieba",
+                "douban",
+                "sqq",
+                "diandian",
+                "huaban",
+                "youdao",
+                "mail",
+                "ty",
+                "fbook",
+                "twi",
+                "linkedin",
+                "copy",
+                "print"
+            ],
+            "bdPic":"",
+            "bdStyle":"0",
+            "bdSize":"16"
+        },
+        "slide":{
+            "type":"slide",
+            "bdImg":_bdImg,
+            "bdPos":"right",
+            "bdTop":"350"
+        },
+        "image":{
+            "viewList":[
+                "weixin",
+                "qzone",
+                "tsina",
+                "renren",
+                "douban",
+                "tqq"
+            ],
+            "viewText":"分享：",
+            "viewSize":"16"
+        },
+        "selectShare":{
+            "bdContainerClass":null,
+            "bdSelectMiniList":[
+                "weixin",
+                "qzone",
+                "tsina",
+                "renren",
+                "douban",
+                "tqq"
+            ]
+        }
+    };
+    with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+
+
+
+
+  </body>
+</html>
+
