@@ -7,20 +7,18 @@
   <meta name="360-site-verification" content="67fbcc5a67f4c65c057315b28fa0b2c8" />
 <meta name="google-site-verification" content="2GzxQ0VtXwTSUdmGm6DzcmhTzM_I9QmzCb_pzpMzD88" />
   
-    <title>C语言的地址操作与指针 | 时不我待，努力须从今日始</title>
+    <title>C语言笔记——二维数组 | 时不我待，努力须从今日始</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="旭">
     
-    <meta name="description" content="C语言的地址操作与指针指针的声明在C语言中，指针用 “变量类型 * 指针名” 的方式声明。
-如要声明一个int类型、名为p的指针:1int *p = NULL;
-给指针变量赋值获得一个变量的地址，可以使用取地址符的方式： “&amp;amp; 变量名”，然后就可以赋值给指针。12int num = 1234">
+    <meta name="description" content="初始化1234567//完全初始化int arr[2][5] = &amp;#123;**0,1,2,3,4**,*5,6,7,8,9*&amp;#125;;//不完全初始化int arr[2][5] = &amp;#123;**0,1,2,3,5**,*6,7,8,9*&amp;#125;;int arr[2][5] = &amp;#1">
     
     
     
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="h113sdx_t" />
-    <meta name="twitter:title" content="C语言的地址操作与指针 | 时不我待，努力须从今日始" />
+    <meta name="twitter:title" content="C语言笔记——二维数组 | 时不我待，努力须从今日始" />
       
     
     
@@ -72,15 +70,15 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2018/03/24/C语言的地址操作与指针/" title="C语言的地址操作与指针" itemprop="url">C语言的地址操作与指针</a>
+      <a href="/2018/03/28/C语言笔记——二维数组/" title="C语言笔记——二维数组" itemprop="url">C语言笔记——二维数组</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://198.181.32.164" title="旭">旭</a>
     </p>
   <p class="article-time">
-    <time datetime="2018-03-24T14:38:10.000Z" itemprop="datePublished">2018-03-24</time>
-    更新日期:<time datetime="2018-03-25T12:31:32.271Z" itemprop="dateModified">2018-03-25</time>
+    <time datetime="2018-03-28T10:01:00.000Z" itemprop="datePublished">2018-03-28</time>
+    更新日期:<time datetime="2018-03-28T14:34:36.589Z" itemprop="dateModified">2018-03-28</time>
     
   </p>
 </header>
@@ -89,24 +87,18 @@
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
-		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#C语言的地址操作与指针"><span class="toc-number">1.</span> <span class="toc-text">C语言的地址操作与指针</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#指针的声明"><span class="toc-number">1.1.</span> <span class="toc-text">指针的声明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#给指针变量赋值"><span class="toc-number">1.2.</span> <span class="toc-text">给指针变量赋值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#指针的打印输出"><span class="toc-number">1.3.</span> <span class="toc-text">指针的打印输出</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#指针的本质"><span class="toc-number">1.4.</span> <span class="toc-text">指针的本质</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分析指针变量的类型方法"><span class="toc-number">1.5.</span> <span class="toc-text">分析指针变量的类型方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#野指针"><span class="toc-number">1.6.</span> <span class="toc-text">野指针</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二级指针"><span class="toc-number">1.7.</span> <span class="toc-text">二级指针</span></a></li></ol></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#初始化"><span class="toc-number">1.</span> <span class="toc-text">初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#访问"><span class="toc-number">2.</span> <span class="toc-text">访问</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#amp-arr-1-1-8-是多少？"><span class="toc-number">3.</span> <span class="toc-text">(&amp;arr)[1][1][-8]是多少？</span></a></li></ol>
 		</div>
 		
-		<h1 id="C语言的地址操作与指针"><a href="#C语言的地址操作与指针" class="headerlink" title="C语言的地址操作与指针"></a>C语言的地址操作与指针</h1><h2 id="指针的声明"><a href="#指针的声明" class="headerlink" title="指针的声明"></a>指针的声明</h2><p>在C语言中，指针用 “<strong>变量类型 * 指针名</strong>” 的方式声明。</p>
-<p>如要声明一个int类型、名为p的指针:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int *p = NULL;</span><br></pre></td></tr></table></figure></p>
-<h2 id="给指针变量赋值"><a href="#给指针变量赋值" class="headerlink" title="给指针变量赋值"></a>给指针变量赋值</h2><p>获得一个变量的地址，可以使用取地址符的方式： “<strong>&amp; 变量名</strong>”，然后就可以赋值给指针。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int num = 1234;</span><br><span class="line">p = &amp;num;</span><br></pre></td></tr></table></figure></p>
-<h2 id="指针的打印输出"><a href="#指针的打印输出" class="headerlink" title="指针的打印输出"></a>指针的打印输出</h2><p>在printf中，使用%p来打印指针的首地址，如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">printf(&quot;%p\n&quot;, p);</span><br></pre></td></tr></table></figure></p>
-<p>可以使用间接引用的方法使用它：“<strong>* 指针变量名</strong>”<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">int num = 1234;</span><br><span class="line">int *p = NULL;</span><br><span class="line">p = &amp;num;</span><br><span class="line">*p = 4321;</span><br><span class="line">printf(&quot;%d&quot;, num); // 输出4321</span><br></pre></td></tr></table></figure></p>
-<h2 id="指针的本质"><a href="#指针的本质" class="headerlink" title="指针的本质"></a>指针的本质</h2><p>指针的本质是一个存地址的变量，在32位程序中，大小为8个16进制数（4字节）；在64位程序中，大小为16个16进制数（8字节），与指向的类型无关。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">printf(&quot;%d\n&quot;, sizeof(p)); // 输出 4（32位程序) 8（64位程序）</span><br></pre></td></tr></table></figure></p>
-<p><strong>p</strong> 等价于 <strong>&amp;num</strong></p>
-<p><strong>*p</strong> 等价于 <strong>*&amp;num</strong> 等价于 <strong>num</strong></p>
-<h2 id="分析指针变量的类型方法"><a href="#分析指针变量的类型方法" class="headerlink" title="分析指针变量的类型方法"></a>分析指针变量的类型方法</h2><p>变量的类型：去掉变量名</p>
-<p>指针指向的类型：去掉变量名 再去掉一个*，剩下的就是指针指向的类型。</p>
-<p>int *p  变量的类型 int* ；指针指向的类型 int。</p>
-<p>int **pp 变量的类型 int ** ；指针指向的类型 int *。</p>
-<h2 id="野指针"><a href="#野指针" class="headerlink" title="野指针"></a>野指针</h2><p>野指针是指向一个已删除的对象或未申请访问受限内存区域的指针。与空指针不同，野指针无法通过简单地判断是否为 NULL避免。所以，对野指针进行操作很容易造成程序错误。</p>
-<p><strong>写程序时要尽量避免操作自己的程序以外的地址。</strong></p>
-<h2 id="二级指针"><a href="#二级指针" class="headerlink" title="二级指针"></a>二级指针</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">int num = 1126;</span><br><span class="line">int *p = &amp;num; // 指针 p 指向 num</span><br><span class="line">int ** pp = &amp;p; // 指针 pp 指向 指针 p</span><br><span class="line">int b = 2611;</span><br><span class="line">*pp = &amp;b;		// 操作二级指针，此时指针 pp 指向 指针 p 、 指针 p 指向 b</span><br></pre></td></tr></table></figure>
+		<h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//完全初始化</span><br><span class="line">int arr[2][5] = &#123;**0,1,2,3,4**,*5,6,7,8,9*&#125;;</span><br><span class="line">//不完全初始化</span><br><span class="line">int arr[2][5] = &#123;**0,1,2,3,5**,*6,7,8,9*&#125;;</span><br><span class="line">int arr[2][5] = &#123;&#123;0,1,2,3&#125;,&#123;5,6,7,8,9&#125;&#125;;</span><br><span class="line">//不给数组大小</span><br><span class="line">int arr[][5] = &#123;0,1,2,3,4&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="访问"><a href="#访问" class="headerlink" title="访问"></a>访问</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//下标访问</span><br><span class="line">arr[0][3] =300;  //arr的首元素的类型是int [5]</span><br><span class="line"></span><br><span class="line">int arr[3][5] = &#123; 0, 1, 2, 3, 4,     5, 6, 7, 8, 9,     10 &#125;;</span><br><span class="line">arr[2][0] = 100;</span><br><span class="line">arr[1][5] = 100;  //先取首元素（数组）地址，偏移1个长度，间接引用，得到第二个数组的首元素地址，再偏移5个长度，得到10的地址，将其赋值为100</span><br></pre></td></tr></table></figure>
+<h2 id="amp-arr-1-1-8-是多少？"><a href="#amp-arr-1-1-8-是多少？" class="headerlink" title="(&amp;arr)[1][1][-8]是多少？"></a>(&amp;arr)[1][1][-8]是多少？</h2><blockquote>
+<p>(&amp;arr)[1][1][-8]==7</p>
+</blockquote>
+<p><img src="https://i.imgur.com/2GKTlDV.png" alt=""></p>
+<hr>
+<p><img src="https://i.imgur.com/AQkwVw2.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int arr[2][5] = &#123; 0 &#125;;</span><br><span class="line">int *p = *arr;  //当间接引用整个数组的地址（arr） 会拿到首元素的地址</span><br><span class="line">int(*pp)[2] = arr; //数组的名字是首元素的地址</span><br><span class="line">int(*ppp)[2][5] = &amp;arr; //当数组名与&amp;和sizeof()结合的时候，代表整个数组</span><br></pre></td></tr></table></figure>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -121,7 +113,7 @@
 
 <div class="article-share" id="share">
 
-  <div data-url="http://198.181.32.164/2018/03/24/C语言的地址操作与指针/" data-title="C语言的地址操作与指针 | 时不我待，努力须从今日始" data-tsina="" class="share clearfix">
+  <div data-url="http://198.181.32.164/2018/03/28/C语言笔记——二维数组/" data-title="C语言笔记——二维数组 | 时不我待，努力须从今日始" data-tsina="" class="share clearfix">
   </div>
 
 </div>
@@ -130,14 +122,14 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2018/03/25/C语言复习杂记1/" title="C语言复习杂记1">
-  <strong>PREVIOUS:</strong><br/>
-  <span>
-  C语言复习杂记1</span>
+
+<div class="next">
+<a href="/2018/03/28/C语言笔记——指针与数组/"  title="C语言笔记——指针与数组">
+ <strong>NEXT:</strong><br/> 
+ <span>C语言笔记——指针与数组
+</span>
 </a>
 </div>
-
 
 </nav>
 
@@ -148,7 +140,7 @@
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
-  <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#C语言的地址操作与指针"><span class="toc-number">1.</span> <span class="toc-text">C语言的地址操作与指针</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#指针的声明"><span class="toc-number">1.1.</span> <span class="toc-text">指针的声明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#给指针变量赋值"><span class="toc-number">1.2.</span> <span class="toc-text">给指针变量赋值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#指针的打印输出"><span class="toc-number">1.3.</span> <span class="toc-text">指针的打印输出</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#指针的本质"><span class="toc-number">1.4.</span> <span class="toc-text">指针的本质</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分析指针变量的类型方法"><span class="toc-number">1.5.</span> <span class="toc-text">分析指针变量的类型方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#野指针"><span class="toc-number">1.6.</span> <span class="toc-text">野指针</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二级指针"><span class="toc-number">1.7.</span> <span class="toc-text">二级指针</span></a></li></ol></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#初始化"><span class="toc-number">1.</span> <span class="toc-text">初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#访问"><span class="toc-number">2.</span> <span class="toc-text">访问</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#amp-arr-1-1-8-是多少？"><span class="toc-number">3.</span> <span class="toc-text">(&amp;arr)[1][1][-8]是多少？</span></a></li></ol>
   </div>
 
 <div id="asidepart">
