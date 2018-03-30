@@ -7,18 +7,36 @@
   <meta name="360-site-verification" content="67fbcc5a67f4c65c057315b28fa0b2c8" />
 <meta name="google-site-verification" content="2GzxQ0VtXwTSUdmGm6DzcmhTzM_I9QmzCb_pzpMzD88" />
   
-    <title>C语言笔记——二维数组 | 时不我待，努力须从今日始</title>
+    <title>C语言笔记——位运算、函数 | 时不我待，努力须从今日始</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="旭">
     
-    <meta name="description" content="初始化1234567//完全初始化int arr[2][5] = &amp;#123;**0,1,2,3,4**,*5,6,7,8,9*&amp;#125;;//不完全初始化int arr[2][5] = &amp;#123;**0,1,2,3,5**,*6,7,8,9*&amp;#125;;int arr[2][5] = &amp;#1">
+    <meta name="description" content="位运算char a = 1;bin:0000 0001char b =-1;bin:1000 0001
+
+正数原码反码补码相同
+负数反码：符号位不变，其他位取反补码： 反码+1计算机内存中存储的都是补码。
+
+
+
+
+位运算
+
+
+
+
+
+&amp;amp;
+与运算  都是1  为1  ； 其他 为 0
+
+
+&amp;#1">
     
     
     
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="h113sdx_t" />
-    <meta name="twitter:title" content="C语言笔记——二维数组 | 时不我待，努力须从今日始" />
+    <meta name="twitter:title" content="C语言笔记——位运算、函数 | 时不我待，努力须从今日始" />
       
     
     
@@ -70,15 +88,15 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2018/03/28/C语言笔记——二维数组/" title="C语言笔记——二维数组" itemprop="url">C语言笔记——二维数组</a>
+      <a href="/2018/03/30/C语言笔记——位运算、函数/" title="C语言笔记——位运算、函数" itemprop="url">C语言笔记——位运算、函数</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://198.181.32.164" title="旭">旭</a>
     </p>
   <p class="article-time">
-    <time datetime="2018-03-28T10:01:00.000Z" itemprop="datePublished">2018-03-28</time>
-    更新日期:<time datetime="2018-03-28T14:34:36.589Z" itemprop="dateModified">2018-03-28</time>
+    <time datetime="2018-03-30T10:00:00.000Z" itemprop="datePublished">2018-03-30</time>
+    更新日期:<time datetime="2018-03-30T14:27:24.116Z" itemprop="dateModified">2018-03-30</time>
     
   </p>
 </header>
@@ -87,18 +105,55 @@
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
-		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#初始化"><span class="toc-number">1.</span> <span class="toc-text">初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#访问"><span class="toc-number">2.</span> <span class="toc-text">访问</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#amp-arr-1-1-8-是多少？"><span class="toc-number">3.</span> <span class="toc-text">(&amp;arr)[1][1][-8]是多少？</span></a></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#位运算"><span class="toc-number">1.</span> <span class="toc-text">位运算</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#函数"><span class="toc-number">2.</span> <span class="toc-text">函数</span></a></li></ol>
 		</div>
 		
-		<h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//完全初始化</span><br><span class="line">int arr[2][5] = &#123;**0,1,2,3,4**,*5,6,7,8,9*&#125;;</span><br><span class="line">//不完全初始化</span><br><span class="line">int arr[2][5] = &#123;**0,1,2,3,5**,*6,7,8,9*&#125;;</span><br><span class="line">int arr[2][5] = &#123;&#123;0,1,2,3&#125;,&#123;5,6,7,8,9&#125;&#125;;</span><br><span class="line">//不给数组大小</span><br><span class="line">int arr[][5] = &#123;0,1,2,3,4&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="访问"><a href="#访问" class="headerlink" title="访问"></a>访问</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//下标访问</span><br><span class="line">arr[0][3] =300;  //arr的首元素的类型是int [5]</span><br><span class="line"></span><br><span class="line">int arr[3][5] = &#123; 0, 1, 2, 3, 4,     5, 6, 7, 8, 9,     10 &#125;;</span><br><span class="line">arr[2][0] = 100;</span><br><span class="line">arr[1][5] = 100;  //先取首元素（数组）地址，偏移1个长度，间接引用，得到第二个数组的首元素地址，再偏移5个长度，得到10的地址，将其赋值为100</span><br></pre></td></tr></table></figure>
-<h2 id="amp-arr-1-1-8-是多少？"><a href="#amp-arr-1-1-8-是多少？" class="headerlink" title="(&amp;arr)[1][1][-8]是多少？"></a>(&amp;arr)[1][1][-8]是多少？</h2><blockquote>
-<p>(&amp;arr)[1][1][-8]==7</p>
-</blockquote>
-<p><img src="https://i.imgur.com/2GKTlDV.png" alt=""></p>
+		<h1 id="位运算"><a href="#位运算" class="headerlink" title="位运算"></a>位运算</h1><p>char a = 1;<br>bin:0000 0001<br>char b =-1;<br>bin:1000 0001</p>
+<ul>
+<li>正数<br>原码反码补码相同</li>
+<li>负数<br>反码：<br>符号位不变，其他位取反<br>补码： 反码+1<br>计算机内存中存储的都是补码。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>位运算</th>
+<th><nbsp></nbsp></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&amp;</td>
+<td>与运算  都是1  为1  ； 其他 为 0</td>
+</tr>
+<tr>
+<td>&#124;</td>
+<td>或运算  有1为1</td>
+</tr>
+<tr>
+<td>~</td>
+<td>取反   1变0  0变1</td>
+</tr>
+<tr>
+<td>^</td>
+<td>亦或  相同为0  不同为1</td>
+</tr>
+<tr>
+<td>&lt;&lt;</td>
+<td>左移  移动几位   补几个0</td>
+</tr>
+<tr>
+<td>&gt;&gt;</td>
+<td>右移  补符号位</td>
+</tr>
+</tbody>
+</table>
+<h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><p>做事步骤的封装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">void PrintArr(int a); //函数的声明    形参</span><br><span class="line">//返回值 +函数名 + （参数） + ;</span><br><span class="line">//返回值：</span><br><span class="line">//1.有    int  char  float  double</span><br><span class="line">//2.无    void</span><br><span class="line">//函数名：自己定义   不能和系统函数重名</span><br><span class="line">//函数名要有意义  Add  首字母大写</span><br><span class="line"></span><br><span class="line">//参数：个数不限   参数要有类型</span><br><span class="line">//函数的结束：遇到 return 或 运行到结尾</span><br><span class="line">int main()&#123;</span><br><span class="line">int n;</span><br><span class="line">PrintArr(n); //实参</span><br><span class="line">PrintArr(10);//实参赋值给形参</span><br><span class="line">…………</span><br><span class="line">&#125;</span><br><span class="line">//函数的调用</span><br><span class="line">//函数名+(参数)+;</span><br><span class="line"></span><br><span class="line">//实现  返回值+ 函数名 + (参数)  ** 没有分号 **</span><br><span class="line">//&#123;</span><br><span class="line">//           函数的内容;</span><br><span class="line">//&#125;</span><br><span class="line">void PrintArr(int a)&#123; //函数的定义（实现）    形参</span><br><span class="line">…………</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <hr>
-<p><img src="https://i.imgur.com/AQkwVw2.png" alt=""></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int arr[2][5] = &#123; 0 &#125;;</span><br><span class="line">int *p = *arr;  //当间接引用整个数组的地址（arr） 会拿到首元素的地址</span><br><span class="line">int(*pp)[2] = arr; //数组的名字是首元素的地址</span><br><span class="line">int(*ppp)[2][5] = &amp;arr; //当数组名与&amp;和sizeof()结合的时候，代表整个数组</span><br></pre></td></tr></table></figure>
+<p><strong>函数什么时候需要参数？</strong><br>我要用的东西需要外部提供<br><strong>什么时候需要返回值？</strong><br>外部需要我的运行结果，有返回值不一定会用到<br>返回值的类型可以和参数的类型不一致，每个参数的类型也可以 不一致</p>
+<p>值传递  只是用实参的值<br>地址传递  当需要改变实参的内容的时候<br><strong>指针的最大作用：  可以跨作用域操作内存空间</strong></p>
+<hr>
+<p>指针作为函数参数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"></span><br><span class="line">void Change(int* p1,int* p2);</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	int a = 100;</span><br><span class="line">	int b = 200;</span><br><span class="line"></span><br><span class="line">	Change(&amp;a,&amp;b);</span><br><span class="line">	printf(&quot;%d\n%d\n&quot;,a,b);</span><br><span class="line"></span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void Change(int* p1,int* p2)</span><br><span class="line">&#123;</span><br><span class="line">	int temp = *p1;</span><br><span class="line">	*p1 = *p2;</span><br><span class="line">	*p2 = temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>数组传参<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"></span><br><span class="line">void PrintArr(int arr[],int nLen);</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	int arr[10] = &#123;0,1,2,3,4,5,6,7,8,9&#125;;</span><br><span class="line"></span><br><span class="line">	PrintArr(arr,sizeof(arr)/sizeof(arr[0]));</span><br><span class="line"></span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void PrintArr(int arr[],int nLen) //[] 数组传参的时候相当于*</span><br><span class="line">&#123;</span><br><span class="line">	</span><br><span class="line">	int i;</span><br><span class="line">	//int n = sizeof(arr)/sizeof(arr[0]);</span><br><span class="line">	for(i=0;i&lt;nLen;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(&quot;%d\n&quot;,arr[i]);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -113,7 +168,7 @@
 
 <div class="article-share" id="share">
 
-  <div data-url="http://198.181.32.164/2018/03/28/C语言笔记——二维数组/" data-title="C语言笔记——二维数组 | 时不我待，努力须从今日始" data-tsina="" class="share clearfix">
+  <div data-url="http://198.181.32.164/2018/03/30/C语言笔记——位运算、函数/" data-title="C语言笔记——位运算、函数 | 时不我待，努力须从今日始" data-tsina="" class="share clearfix">
   </div>
 
 </div>
@@ -122,19 +177,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2018/03/29/C语言笔记——程序编译过程、宏定义、typedef/" title="C语言笔记——程序编译过程、宏定义、typedef">
-  <strong>PREVIOUS:</strong><br/>
-  <span>
-  C语言笔记——程序编译过程、宏定义、typedef</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2018/03/28/C语言笔记——指针与数组/"  title="C语言笔记——指针与数组">
+<a href="/2018/03/29/C语言笔记——程序编译过程、宏定义、typedef/"  title="C语言笔记——程序编译过程、宏定义、typedef">
  <strong>NEXT:</strong><br/> 
- <span>C语言笔记——指针与数组
+ <span>C语言笔记——程序编译过程、宏定义、typedef
 </span>
 </a>
 </div>
@@ -148,7 +195,7 @@
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
-  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#初始化"><span class="toc-number">1.</span> <span class="toc-text">初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#访问"><span class="toc-number">2.</span> <span class="toc-text">访问</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#amp-arr-1-1-8-是多少？"><span class="toc-number">3.</span> <span class="toc-text">(&amp;arr)[1][1][-8]是多少？</span></a></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#位运算"><span class="toc-number">1.</span> <span class="toc-text">位运算</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#函数"><span class="toc-number">2.</span> <span class="toc-text">函数</span></a></li></ol>
   </div>
 
 <div id="asidepart">
